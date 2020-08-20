@@ -3,7 +3,7 @@
 # LWO v1.0 - Light Weight Objects for GameMaker Studio 2.3.0
 </div>
 
-This is a system I'm designing to use as light weight objects for some of my upcoming projects. These take advantage of GameMaker's newly featured structs, and allows you to make entire objects out of them. 
+This is a system I'm designing to use as light weight objects for some of my upcoming projects. These take advantage of GameMaker's newly featured structs, and allows you to make your own objects, without all of the unnecessary variables/bloat that comes attached with objects. 
 
 Note: In the future, I might merge out step and draw to be one.
 
