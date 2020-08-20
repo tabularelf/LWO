@@ -5,6 +5,8 @@
 
 This is a system I'm designing to use as light weight objects for some of my upcoming projects. These take advantage of GameMaker's newly featured structs, and allows you to make entire objects out of them. 
 
+Note: In the future, I might merge out step and draw to be one.
+
 
 ## Functions
 `lwo_create(struct)`
