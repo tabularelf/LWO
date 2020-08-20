@@ -41,15 +41,18 @@ global.__lwo_system = {
 	lwo_map : ds_map_create(),
 	
 	// Functions
-	lwo_sys_delete : function() {
+	lwo_sys_clear : function() {
 		if (ds_list_size(lwo_list) > 0) {
 			var _size = lwo_counter;
 			for(var _i = 0; _i < _size; ++_i) {
 				delete(lwo_list[| 0]);
 				ds_list_delete(lwo_list,0);
 			}
-		}
-		
+		}	
+	},
+	
+	lwo_sys_delete : function() {
+		lwo_clear();
 		ds_map_destroy(lwo_map);
 		ds_list_destroy(lwo_list);
 		//ds_list_destroy(lwo_list_inactive);
@@ -85,7 +88,7 @@ function lwo_find(_id) {
 
 /// @function lwo_create
 /// @param struct
-/// @description Use case: lwo_create(new lwo_test(x,y)). This is to ensure that the lwo instance is properly added to the system.
+/// @description Use case: lwo_create(new lwo_test(x,y)). This is to ensure that the lwo instance is properly added to the system. Returns struct.
 function lwo_create(_lwo) {	
 	// Give it an ID
 	_lwo.id = global.__lwo_system.lwo_ids++;
@@ -99,47 +102,16 @@ function lwo_create(_lwo) {
 	//ds_queue_clear()
 	return _lwo;
 }
-
-/// @function lwo_process
-/// @param event
-/// @description Processes all instances with the appropriate event. Currently step and draw are supported.
-function lwo_process(_event) {
-	var _size = global.__lwo_system.lwo_counter;
-	var _list = global.__lwo_system.lwo_list;
-	
-	// Loop
-	for(global.__lwo_system.lwo_pos = 0; global.__lwo_system.lwo_pos < _size; ++global.__lwo_system.lwo_pos) {
-		var _lwo = _list[| global.__lwo_system.lwo_pos];
-		//show_debug_message(global.__lwo_system.lwo_pos);
-		//show_debug_message(_lwo);
-		if is_undefined(_lwo) {
-			ds_list_delete(_list,global.__lwo_system.lwo_pos);
-			--_size;
-			--global.__lwo_system.lwo_pos;
-			//--global.__lwo_system.lwo_pos;
-			--global.__lwo_system.lwo_counter;
-		} else {
-			// Check for Event Type and execute base upon type
-			var _func = undefined;
-			switch(_event) {
-				case lwoEvents.STEP: _func = _lwo.e_step; break;
-				case lwoEvents.DRAW: _func = _lwo.e_draw; break;
-			}
-			
-			if is_method(_func) {
-				_func();	
-			}//*/
-			
-			//_lwo.e_draw();//draw_sprite_ext(spr_test,0,_lwo.x,_lwo.y,1,1,0,_lwo.blend,1);
-		}
-	}
-}
 	
 /// @function lwo_free
 /// @description ONLY USE WHEN YOU CLOSE THE PROGRAM!!! lwo_free simply removes the lwo_system from memory, along with all instances.
 function lwo_free() {
 	global.__lwo_system.lwo_sys_delete();
 	delete global.__lwo_system;
+}
+	
+function lwo_clear() {
+	global.__lwo_system.lwo_sys_clear();	
 }
 
 /// @function lwo_free
@@ -170,6 +142,40 @@ function lwo_destroy() {
 		delete _id;
 		ds_list_delete(_list, _list_pos);
 		ds_map_delete(global.__lwo_system.lwo_map,_idd);
+	}
+}
+
+
+/// @function lwo_process
+/// @param event
+/// @description Processes all instances with the appropriate event. Currently step and draw are supported.
+function lwo_process(_event) {
+	var _size = global.__lwo_system.lwo_counter;
+	var _list = global.__lwo_system.lwo_list;
+	
+	// Loop
+	for(global.__lwo_system.lwo_pos = 0; global.__lwo_system.lwo_pos < _size; ++global.__lwo_system.lwo_pos) {
+		var _lwo = _list[| global.__lwo_system.lwo_pos];
+		//show_debug_message(global.__lwo_system.lwo_pos);
+		//show_debug_message(_lwo);
+		if is_undefined(_lwo) {
+			ds_list_delete(_list,global.__lwo_system.lwo_pos);
+			--_size;
+			--global.__lwo_system.lwo_pos;
+			//--global.__lwo_system.lwo_pos;
+			--global.__lwo_system.lwo_counter;
+		} else {
+			// Check for Event Type and execute base upon type
+			var _func = undefined;
+			switch(_event) {
+				case lwoEvents.STEP: _func = _lwo.e_step; break;
+				case lwoEvents.DRAW: _func = _lwo.e_draw; break;
+			}
+			
+			if is_method(_func) {
+				_func();	
+			}
+		}
 	}
 }
 	

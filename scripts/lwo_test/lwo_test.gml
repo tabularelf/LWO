@@ -2,20 +2,23 @@
 
 function lwo_test(_x, _y) : lwo_struct() constructor {
 	
-	// Create Event
+	#region Create Event
 	x = _x;
 	y = _y;
 	z = 100;
 	xstart = _x;
 	ystart = _y;
 	blend = make_color_hsv(irandom(255),irandom(255),255);
+	timer = irandom(60*100);
+	#endregion
 	
+	#region Destroy Event
 	// We also have control of the hidden destroy event.
 	e_destroy = LWO_EVENT_START 
 		show_debug_message("Goodbye cruel world! " + string(id));
 	LWO_EVENT_END
-	
-	
+	#endregion
+	#region Step Event
 	// Commented out by default as there's some performance losses when processing more than one event.
 	// I've yet to find a more optimial solution, but this seems to be more of an issue in regards to
 	// Function calls. Which is a bummer, given that this system was meant to be fairly easy to
@@ -29,12 +32,22 @@ function lwo_test(_x, _y) : lwo_struct() constructor {
 	y = ystart + (sin(current_time/100)*2);
 	
 	LWO_EVENT_END*/
+	#endregion
 	
+	#region Draw Event
 	// Draw Event
 	e_draw = LWO_EVENT_START
 	
 	//matrix_set(matrix_world,matrix_build(x,y,z,0,0,0,1,1,1));
 	draw_sprite_ext(spr_test,0,x + (cos(current_time/100)*2),y + (sin(current_time/100)*2),1,1,0,blend,1);
 	
+	// We have a timer to it's ultimate demise.
+	if (timer == 0) {
+		lwo_destroy();
+	} else {
+		--timer;
+	}
+	
 	LWO_EVENT_END
+	#endregion
 }
