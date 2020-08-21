@@ -29,7 +29,7 @@ Returns the specific struct if found. Otherwise returns undefined.
 
 `lwo_destroy([id],[execute destroy (bool)])`
 
-Destroys struct with either ID provided, or will obtain current ID executing it.
+Destroys struct with either ID provided, or will obtain current ID executing within loop. Though, it's recommended for best practice to use the id of the LWO instance, as the system doesn't have a very reliable way of handling things as of yet.
 
 `lwo_process(event)`
 
