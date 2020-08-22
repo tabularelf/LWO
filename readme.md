@@ -42,3 +42,12 @@ Only use when you absolutely no longer need LWO system. Will free the LWO system
 `lwo_clear()`
 
 Removes all structs from memory.
+
+# Macros
+
+`LWO_EVENT_START` mimics `function() {`. 
+It isn't necessary to use, but makes it somewhat cleaner to read through.
+
+`LWO_EVENT_END` mimics `}`
+
+To end a `LWO_EVENT_START`. Not much else to say.
