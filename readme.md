@@ -29,7 +29,7 @@ Returns the specific struct if found. Otherwise returns undefined.
 
 `lwo_destroy([id],[execute destroy (bool)])`
 
-Destroys struct with either ID provided, or will obtain current ID executing it.
+Destroys struct with either ID provided, or will obtain current ID executing within loop. Though, it's recommended for best practice to use the id of the LWO instance, as the system doesn't have a very reliable way of handling things as of yet.
 
 `lwo_process(event)`
 
@@ -42,3 +42,12 @@ Only use when you absolutely no longer need LWO system. Will free the LWO system
 `lwo_clear()`
 
 Removes all structs from memory.
+
+# Macros
+
+`LWO_EVENT_START` mimics `function() {`. 
+It isn't necessary to use, but makes it somewhat cleaner to read through.
+
+`LWO_EVENT_END` mimics `}`
+
+To end a `LWO_EVENT_START`. Not much else to say.
