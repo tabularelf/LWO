@@ -123,7 +123,7 @@ function lwo_destroy() {
 	var _execute_destroy = true;
 	var _list = global.__lwo_system.lwo_list;
 	switch(argument_count) {
-		case 0: _id = _list[| global.__lwo_system.lwo_pos]; break;
+		case 0: _id = global.__lwo_system.lwo_map[? id];/*_list[| global.__lwo_system.lwo_pos];*/ break;
 		case 2: _execute_destroy = argument[1]; case 1: _id = argument[0]; break;
 	}
 	
